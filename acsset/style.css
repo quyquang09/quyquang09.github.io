@@ -21,13 +21,58 @@ html{
     
 }
 .close {
-    display: none ;
+    display: none;
+}
+.openFan {
+    display: none !important;
 }
 .active {
     background: rgb(17, 218, 197) !important;
 }
+.messageError {
+    content: "";
+    background-color: #000000;
+    position: fixed;
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 180px;
+    top:40%;
+    left: 40%;
+    border-radius: 10px;
+    box-shadow: 0 0 7px #2ef5f5;
+    z-index: 5;
+}
+.messageError .imgMessError {
+    width: 100%;
+    margin-top: -8px;
+}
+.messageError h1{
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+.messageError button {
+    cursor: pointer;
+    padding: 10px 20px;
+    background: rgb(48, 133, 214);
+    position: absolute;
+    bottom: 10px;
+    left: 41%;
+    border-radius: 10px;
+}
+.messageError button:hover {
+    background: rgb(38, 105, 167);;
+}
+.press-drop {
+    background: #ddbc02  !important;
+}
 .pull-right{
     float: right;
+    text-align: center;
+    font-size: 16px;
 }
 .btn:hover{
     color: #000;
@@ -120,14 +165,7 @@ html{
 #icon-toggle {
     display: block;
 }
-.device-value {
-    display: flex;
-    position: absolute;
-    justify-content: space-evenly;
-    width: 100%;
-    line-height: 50px;
-    font-size: 21px;
-}
+
 #icon-toggle:active {
     box-shadow:  4px 4px 6px 0 #409292,
                 -4px -4px 6px 0 rgba(116, 125, 136, .2), 
@@ -139,7 +177,7 @@ html{
 /*  */
 #header{
     background-color:#7a7777!important ;
-    height: 75px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
@@ -148,16 +186,44 @@ html{
     font-size: 18px;
     
 }
+#header #logo-team {
+    width: 150px;
+    height: 100%;
+    display: block;
+}
+#header #logo-team img {
+    width: 50px;
+    height: 50px;
+    margin-left: 28%;
+}
+#header #logo-team a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: rgb(250, 4, 4);
+    text-transform: uppercase;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+#header ul a img:hover {
+    
+}
 #header #nav{
-    display: inline-block;  
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    justify-content: space-between;  
 }
-#nav > li{
-    display: inline-block;
-    position: relative;
+#subnav {
+    display: flex;
+    justify-content: start;
+    width: 100%;
 }
-#nav > li > a {
+#subnav > li > a {
+    display: flex;
     color: #fff;
-    line-height: 75px;
+    line-height: 80px;
     text-transform: uppercase;
     
 }
@@ -167,45 +233,25 @@ html{
     padding: 0px 24px;
     display: block;
 }
-#nav , .subnav{
+#nav , #subnav{
     list-style-type: none;
 }
-#nav li:hover .subnav{
-    display: block;
-}
-#nav .subnav li:hover a ,
-#nav > li:hover > a
+
+#nav #subnav li:hover a 
 {
+    height: 100%;
     background-color: #ccc;
     color: #000;
-}
-#nav li .subnav{
-    top: 100%;
-    left: 0;
-    background-color: #fff;
-    box-shadow: 0 0 10px;
-    display: none;
-    min-width: 160px;
-    position: absolute;
-}
-#nav .subnav a{
-    color: black;
-    padding: 0px 12px;
-    line-height: 38px;
-}
-#subnav li{
-    display: block;
 }
 .mobile-menu-btn{
     display: none;
 }
 
 .login-button {
-    float: right;
     padding: 0px 16px; 
-    line-height: 75px;
+    line-height: 80px;
     display: inline-block;
-    width: 130px;
+    width: 20%;
     text-align: center;  
 }
 .login-button:hover a {
@@ -352,8 +398,9 @@ html{
     text-align: center;
     font-weight: 400;
 }
+
 #control{
-    padding-top: 75px;
+    padding-top: 80px;
     background-color: #031321;
 }
 #nav-device {
@@ -402,10 +449,10 @@ div#device {
 }
 
 /* animation điều hoà*/
-#harnomic-bedroom {
+#harmonic-bedroom {
     animation: modalLeftToRight ease 0.6s;
 }
-#harnomic-guestRoom {
+#harmonic-guestRoom {
     animation: modalRightToLeft1 ease 0.6s;
 }
 /* animation quạt*/
@@ -425,19 +472,40 @@ div#device {
 #tivi-guestroom {
     animation: modalDownToUp ease 0.4s;
 }
+
+.currentProgram {
+    display: flex;
+    justify-content: center;
+    color: #03f437;
+}
 .img{
     width: 100%;
     height: 260px;
     display: block;
+    position: relative;
 }
 #control .device-body {
     background-color: #323844;
     padding: 0 12px;
+    border-radius: 40px;
+}
+
+.img .imgOpenFan1 {
+    position: absolute;
+    top: -10px;
+    left: 7px;
+    padding-left: 2px;
+}
+.img .img2 {
+    position: absolute;
+    margin-top:152px;
+    margin-left: 16px;
 }
 #control .device-name {
     text-align: center;
     text-transform: uppercase;
-    padding: 15px 0;
+    padding-top: 25px;
+    padding-bottom: 10px;
 }
  #nav-control {
     margin: 12px auto;
@@ -473,7 +541,7 @@ div#device {
 }
 .device-body img {
     display: block;
-    width: 50%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     cursor: pointer;
@@ -508,8 +576,9 @@ div#device {
     justify-content: space-between;
     align-items: center;
 }
-.control-tivi .progress-bar-wrapper, 
-.control-temp .progress-bar-wrapper {
+.control-temp .progress-bar-wrapper ,
+.control-tivi .progress-bar-wrapper 
+{
     width: 100%;
     height: 50px;
     background-color: #cac5ac;
@@ -518,11 +587,13 @@ div#device {
     position: relative;
     display: flex;
 }
-.control-temp .temp-value {
-
-}
-.control-tivi .progress-bar,
 .control-temp .progress-bar {
+    height: 100%;
+    width: 50%;
+    background: #26c248;
+    border-radius: 25px;
+}
+.control-tivi .progress-bar {
     height: 100%;
     width: 50%;
     background: #26c248;
@@ -534,7 +605,13 @@ div#device {
     z-index: 1;
     opacity: 0.8;
 }
-
+.control-tivi .device-value {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    margin-right: 20px;
+}
 .icon-minus,
 .icon-plus {
     font-size: 40px;
@@ -567,7 +644,11 @@ span.timeused {
     justify-content: space-between;
     align-items: baseline;  
 }
-
+.device-tivi .img-btn {
+    width: 50%;
+    border-radius: 50%;
+    box-shadow:  0px -4px 7px  #051f1d; ;
+}
 
 .timer-val input[type="number"] 
  {
@@ -671,38 +752,71 @@ span.timeused {
 #button-1 .layer {
     transition: 0.3s ease all;
 }
+/* Điều hoà */
+.device-harmonic .r {
+    position: relative;
+}
+.device-harmonic .r .valuetemp1 {
+    position: absolute;
+    background: #CCCCCD;
+    color: #ff0000;
+    top: 27%;
+    left: 32%;
+    padding: 2px 38px;
+    font-size: 26px;
+    border-radius: 13px;
+}
+
 /* Điều khiển quạt */
 #speed {
-
+    margin-bottom: 12px;
+    border: 1px dotted #fafafa;
+    padding: 25px 10px;
+    position: relative;
+    margin: 20px 5px;
 }
 #speed .speed-head {
-    margin: 20px 20px 10px 10px;
-    text-align: left;
-    font-size: 20px;
-    color: #e850b5;
-    font-weight: 600; 
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1;
+    text-transform: uppercase;
+    display: inline-block;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+    padding: 0 10px;
+    color: #96da11;
+    background: #323844;
 }
+
+input[type='radio'] {
+    cursor: pointer;
+    width: 22px;
+    height: 22px;
+
+}
+
+input[type='radio'] + label {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding-left: 10px;
+    margin-right: 10px;
+    color: #0b6a2f;
+    font-size: 18px;
+    font-weight: 600;
+}
+
 #speed .speed-body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 3px 10px;
-}
-#speed .speed-body label {
-    text-align: center;
-    line-height: 25px;
-    color: #297433;
-    font-size: 18px;
-    text-transform: uppercase;
-    font-weight: 550;
-}
-#speed .speed-body input {
-    width: 25px;
-    height: 25px;
-}
+} */
+
+
   /* Displayed */
 #displayed {
-    padding-top: 75px;
+    padding-top: 80px;
     background: #073157;
 }
 

@@ -8,10 +8,14 @@ const firebaseConfig = {
     messagingSenderId: "498648859175",
     appId: "1:498648859175:web:92ff5c6b0fb6e38e164402",
     measurementId: "G-Z678PC4M4D"
-  };
+};
 
   // Initialize Firebase
- firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+	//Khởi tạo biến
+//const auth = firebase.auth();
+//const database = firebase.database()
+
 
 const $ =document.querySelector.bind(document)
 const $$ =document.querySelectorAll.bind(document)
@@ -30,14 +34,14 @@ const statustLamp1=$('.switch-toggle1')
 const statustLamp2 =$('.switch-toggle2')
 const statustLamp3 =$('.switch-toggle3')
 //Điều hoà
-const statustHarnomic1 = $('#statust-harnomic1')
-const statustHarnomic2 = $('#statust-harnomic2')
-const ChooseDewHr1 = $('#harnomic-bedroom .dew')
-const ChooseColdHr1 = $('#harnomic-bedroom .cold')
-const ChooseWindHr1 = $('#harnomic-bedroom .wind')
-const ChooseDriedHr1 = $('#harnomic-bedroom .dried')
-const togglePlusHr1 =$('#harnomic-bedroom .icon-plus')
-const toggleMinusHr1 = $('#harnomic-bedroom .icon-minus')
+const statustHarmonic1 = $('#statust-harmonic1')
+const statustHarmonic2 = $('#statust-harmonic2')
+const ChooseDewHr1 = $('#harmonic-bedroom .dew')
+const ChooseColdHr1 = $('#harmonic-bedroom .cold')
+const ChooseWindHr1 = $('#harmonic-bedroom .wind')
+const ChooseDriedHr1 = $('#harmonic-bedroom .dried')
+const togglePlusHr1 =$('#harmonic-bedroom .icon-plus')
+const toggleMinusHr1 = $('#harmonic-bedroom .icon-minus')
 // Quạt
 const statusFan1 = $('#statust-Fan1')
 const statusFan2 = $('#statust-Fan2')
@@ -45,14 +49,22 @@ const chooseturnFan1 = $('#Fan-bedroom .turn')
 const choosedewFan1 = $('#Fan-bedroom .dew')
 const choosedriedFan1 = $('#Fan-bedroom .driedFan')
 const speedFan1 = document.getElementsByName("Fan1-speed")
-var valueSpeedFan1="";
+var valueSpeedFan1='';
+const propeller =$('.imgOpenFan1')
+// tivi
+const btnNextProgram = $('#tivi-bedroom .next')
+const btnPrevProgram = $('#tivi-bedroom .prev')
+const btnHome = $('#tivi-bedroom .home')
+const toggleePlusTv1 = $('#tivi-bedroom .icon-plus')
+
 const toggleSetTimer =$('#save-timer')
 const NavDevicce = $('#nav-device')
 const toggleLamp =$('#toggle-lamp')
-const toggleHarnomic =$('#toggle-harnomic')
+const toggleHarmonic =$('#toggle-harmonic')
 const toggleFan = $('#toggle-fan')
 const toggleTv = $('#toggle-tv')
 const device = $$('#device')
+const btnCloseMessage = $('.messageError button')
 var codes
 var delayInMilliseconds = 1000; //1 second
 let s=0,m=0,h=0
@@ -64,13 +76,15 @@ const app = {
 	isStartusLamp3:true,
 	
 	//Trạng thái điều hoà
-	isStartusHarnomic1:false,
-	isStartusHarnomic2:true,
+	isStartusHarmonic1:false,
+	isStartusHarmonic2:true,
 	// Trang thai quat
 	isStartusFan1:false,
-
-	tempHarnomic: parseInt(document.getElementById('valueHanomic1').innerHTML)
-	,
+	duration1:0,
+	tempharmonic: parseInt($('.valuetemp1').innerHTML),
+	volumeTivi1: parseInt(document.getElementById('valueTivi1').innerHTML),
+	currentProgram:1,
+	
 	//Xử lí sự kiện login
 	handleEventLogin: function() {
 		// Xử lí khi ấn login
@@ -97,6 +111,10 @@ const app = {
 			 }
 			 
 		 }
+		 //Xử lí sự kiện nút đóng của sổ message Error
+		btnCloseMessage.onclick =function(){
+			$('.messageError').classList.add('close')
+		}	
 	},
 	// Xử lí các sự kiện của đèn
 	handleEventLamp: function() {
@@ -120,14 +138,14 @@ const app = {
             var firebaseRef = firebase.database().ref('isStatusLamp/').child('isStartusLamp1')
 			
             if(app.isStartusLamp1){
-                $('.device-lamp img').src="./acsset/img/denon.jfif"
+                $('.device-lamp img').src="./acsset/img/denon.png"
                 $('#lamp-bedroom .status').lastChild.data= 'Đang Bật'
                 app.isStartusLamp1 =false
 				firebaseRef.set("Lamp1on");
 				app.startTimeLamp1()
             }
             else {
-				$('.device-lamp img').src="./acsset/img/denof.png"
+				$('.device-lamp img').src="./acsset/img/denoff.png"
                 $('#lamp-bedroom  span').lastChild.data= 'Đang Tắt'
 				app.stopTimeLamp1();
                 app.isStartusLamp1 =true
@@ -140,6 +158,7 @@ const app = {
 
             if(app.isStartusLamp2){
                 app.startTimeLamp2()
+				$('#lamp-guestRoom img').src="./acsset/img/denon.png"
                 $('#lamp-guestRoom span').lastChild.data= 'Đang Bật'
                 app.isStartusLamp2 =false
 				firebaseRef.set("Lamp2on");
@@ -147,6 +166,7 @@ const app = {
             else {
 				app.stopTimeLamp2();
                 $('#lamp-guestRoom span').lastChild.data= 'Đang Tắt'
+				$('#lamp-guestRoom img').src="./acsset/img/denoff.png"
                 app.isStartusLamp2 =true
 				firebaseRef.set("Lamp2off");
             }
@@ -156,12 +176,14 @@ const app = {
             var firebaseRef = firebase.database().ref('isStatusLamp/').child('isStartusLamp3')
             if(app.isStartusLamp3){
                 app.startTimeLamp3()
+				$('#Lamp-kitchen img').src="./acsset/img/denon.png"
                 $('#Lamp-kitchen span').lastChild.data= 'Đang Bật'
                 app.isStartusLamp3 =false
 				firebaseRef.set("Lamp3on");
             }
             else {
                 app.stopTimeLamp3()
+				$('#Lamp-kitchen img').src="./acsset/img/denoff.png"
                 $('#Lamp-kitchen span').lastChild.data= 'Đang Tắt'
                 app.isStartusLamp3 =true
 				firebaseRef.set("Lamp3off");
@@ -169,10 +191,9 @@ const app = {
         })
 	},
 	// Xử lí các sự kiện của điều hoà
-	handleEventHarnomic: function() {
+	handleEventharmonic: function() {
 		//Xử lí sự kiện chọn thiết bị điều hoà
-		toggleHarnomic.onclick = function() {
-			
+		toggleHarmonic.onclick = function() {
 			NavDevicce.childNodes.forEach(element=>{
 				if(element.className !=='undefined'){
 					element.className =""
@@ -183,33 +204,37 @@ const app = {
 					element.className ="close"
 				}
 			})
-			toggleHarnomic.classList.add('active')
+			toggleHarmonic.classList.add('active')
 			device[1].classList.add('open')
 		},
 		// xử lí khi bật điều hoà phòng ngủ
-		statustHarnomic1.addEventListener('click',function(){
-            if(app.isStartusHarnomic1===false){
-                app.isStartusHarnomic1 =true
-				app.writePostHarnomic('Harnomic1/',1,'On','Off','Off','Off','Off')
-				
+		statustHarmonic1.addEventListener('click',function(){
+            if(app.isStartusHarmonic1===false){
+				app.settemperatureharmonic();
+				$('.valuetemp1').classList.remove('close')
+                app.isStartusHarmonic1 =true
+				app.writePostharmonic('harmonic-bedroom/',1,'On','Off','Off','Off','Off',app.tempharmonic)
+				$('#harmonic-bedroom .img').src="./acsset/img/dieuhoaon.png"
             }
             else {
-                app.isStartusHarnomic1 =false
-				app.writePostHarnomic('Harnomic1/',1,'Off','Off','Off','Off','Off')
-				$$('#harnomic-bedroom .active-btn').forEach(element =>{
+                app.isStartusHarmonic1 =false
+				$('.valuetemp1').classList.add('close')
+				app.writePostharmonic('harmonic-bedroom/',1,'Off','Off','Off','Off','Off',app.tempharmonic)
+				$$('#harmonic-bedroom .active-btn').forEach(element =>{
 					element.classList.remove('active-btn')
 				})
+				$('#harmonic-bedroom .img').src="./acsset/img/dieuhoaoff.png"
             }
         }),
 		// xử lí khi bật điều hoà phòng khách
-		statustHarnomic2.addEventListener('click',function(){
-            var firebaseRef = firebase.database().ref('isStatusHarnomic/').child('Harnomic2')
-            if(app.isStartusHarnomic2){
-                app.isStartusHarnomic2 =false
+		statustHarmonic2.addEventListener('click',function(){
+            var firebaseRef = firebase.database().ref('isStatusharmonic/').child('harmonic2')
+            if(app.isStartusHarmonic2){
+                app.isStartusHarmonic2 =false
 				firebaseRef.set("On");
             }
             else {
-                app.isStartusHarnomic2 =true
+                app.isStartusHarmonic2 =true
 				firebaseRef.set("Off");
 				
             }
@@ -218,108 +243,114 @@ const app = {
 		isChosseDew =true,
 		ChooseDewHr1.onclick =function() {
 			var updates ={}
-			if(app.isStartusHarnomic1){
+			if(app.isStartusHarmonic1){
 				if(isChosseDew ){	
-					updates['Harnomic1/1/' + 'dew'] = 'On';
+					updates['harmonic-bedroom/1/' + 'dew'] = 'On';
 					firebase.database().ref().update(updates);
 					isChosseDew =false;
-					$('#harnomic-bedroom .dew .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .dew .icon-btn').classList.toggle('active-btn')
 				}
 				else if(isChosseDew===false ) {
-					updates['Harnomic1/1/' + 'dew'] = 'Off';
+					updates['harmonic-bedroom/1/' + 'dew'] = 'Off';
 					firebase.database().ref().update(updates);
 					isChosseDew =true;
-					$('#harnomic-bedroom .dew .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .dew .icon-btn').classList.toggle('active-btn')
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật điều hoà trước')
 			}
 		},
 		//xử lí sự kiện bật làm lạnh nhanh
 		isChosseCold =true,
 		ChooseColdHr1.onclick =function() {
 			var updates ={}
-			if(app.isStartusHarnomic1){
+			if(app.isStartusHarmonic1){
 				if(isChosseCold){	
-					updates['Harnomic1/1/' + 'cold'] = 'On';
+					updates['harmonic-bedroom/1/' + 'cold'] = 'On';
 					firebase.database().ref().update(updates);
 					isChosseCold =false;
-					$('#harnomic-bedroom .cold .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .cold .icon-btn').classList.toggle('active-btn')
 				}
 				else {
-					updates['Harnomic1/1/' + 'cold'] = 'Off';
+					updates['harmonic-bedroom/1/' + 'cold'] = 'Off';
 					firebase.database().ref().update(updates);
 					isChosseCold =true;
-					$('#harnomic-bedroom .cold .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .cold .icon-btn').classList.toggle('active-btn')
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật điều hoà trước')
 			}
 		}
 		//Xử lí sự kiện bật nút quạt
 		isChosseWind =true,
 		ChooseWindHr1.onclick =function() {
 			var updates ={}
-			if(app.isStartusHarnomic1){
+			if(app.isStartusHarmonic1){
 				if(isChosseWind){	
-					updates['Harnomic1/1/' + 'wind'] = 'On';
+					updates['harmonic-bedroom/1/' + 'wind'] = 'On';
 					firebase.database().ref().update(updates);
 					isChosseWind =false;
-					$('#harnomic-bedroom .wind .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .wind .icon-btn').classList.toggle('active-btn')
 				}
 				else {
-					updates['Harnomic1/1/' + 'wind'] = 'Off';
+					updates['harmonic-bedroom/1/' + 'wind'] = 'Off';
 					firebase.database().ref().update(updates);
 					isChosseWind =true;
-					$('#harnomic-bedroom .wind .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .wind .icon-btn').classList.toggle('active-btn')
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật điều hoà trước')
 			}
 		}
 		//Xử lí sự kiện bật nút Sưởi
 		isChosseDried =true,
 		ChooseDriedHr1.onclick =function() {
 			var updates ={}
-			if(app.isStartusHarnomic1){
+			if(app.isStartusHarmonic1){
 				if(isChosseDried){	
-					updates['Harnomic1/1/' + 'dried'] = 'On';
+					updates['harmonic-bedroom/1/' + 'dried'] = 'On';
 					firebase.database().ref().update(updates);
 					isChosseDried =false;
-					$('#harnomic-bedroom .dried .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .dried .icon-btn').classList.toggle('active-btn')
 				}
 				else {
-					updates['Harnomic1/1/' + 'dried'] = 'Off';
+					updates['harmonic-bedroom/1/' + 'dried'] = 'Off';
 					firebase.database().ref().update(updates);
 					isChosseDried =true;
-					$('#harnomic-bedroom .dried .icon-btn').classList.toggle('active-btn')
+					$('#harmonic-bedroom .dried .icon-btn').classList.toggle('active-btn')
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật điều hoà trước')
 			}
 		}
 		//Xử lí sự kiện bật nút Tăng nhiệt độ
 		togglePlusHr1.onclick = function() {
-			if(app.tempHarnomic!==32){
-				app.tempHarnomic++;
-				app.settemperatureHarnomic();
+			var updates ={}
+			if(app.tempharmonic!==32){
+				app.tempharmonic++;
+				app.settemperatureharmonic();
+				updates['harmonic-bedroom/1/' + 'temperature'] = ''+app.tempharmonic
+				firebase.database().ref().update(updates);
 			}
 			else {
-				app.tempHarnomic =app.tempHarnomic
+				app.tempharmonic =app.tempharmonic
 			}
 		}
-		//Xử lí sự kiện bật nút Tăng nhiệt độ 
+		//Xử lí sự kiện bật nút giảm nhiệt độ 
 		toggleMinusHr1.onclick = function() {
-			if(app.tempHarnomic>10){
-				app.tempHarnomic--;
-				app.settemperatureHarnomic();
+			var updates ={}
+			if(app.tempharmonic>10){
+				app.tempharmonic--;
+				app.settemperatureharmonic();
+				updates['harmonic-bedroom/1/' + 'temperature'] = ''+app.tempharmonic
+				firebase.database().ref().update(updates);
 			}
 			else {
-				app.tempHarnomic =app.tempHarnomic
+				app.tempharmonic =app.tempharmonic
 			}
 		}
 	},
@@ -342,15 +373,27 @@ const app = {
 			device[2].classList.add('open')
 		}
 		//Xử lí khi ấn bật quạt
+		const FanAnimate1 = propeller.animate([
+			{transform:'rotate(360deg)'}
+		],{
+			duration: 100,
+			iterations: Infinity
+		})
 		statusFan1.addEventListener('click',function(){
 			var updates ={}
-			app.getValueSpeedFan1();
+			app.getValueSpeedFan1()
 			if(app.isStartusFan1===false){
-					app.isStartusFan1 =true
-					app.writePostFan('Fan-bedroom/',1,'On','Off','Off','Off',valueSpeedFan1)
+				app.isStartusFan1 =true
+				FanAnimate1.play();
+				$('#imgOpenFan1').classList.remove('openFan')
+				$('#imgFan1off').classList.add('openFan')
+				app.writePostFan('Fan-bedroom/',1,'On','Off','Off','Off',valueSpeedFan1)
 			}
 			else {
+				$('#imgFan1off').classList.remove('openFan')
+				$('#imgOpenFan1').classList.add('openFan')
 				app.isStartusFan1 =false
+				FanAnimate1.pause();
 				app.writePostFan('Fan-bedroom/',1,'Off','Off','Off','Off','0')
 				$$('#Fan-bedroom .active-btn').forEach(element =>{
 					element.classList.remove('active-btn')
@@ -376,7 +419,7 @@ const app = {
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật quạt trước !!!')
 			}
 		}
 
@@ -399,7 +442,7 @@ const app = {
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật quạt trước !!!')
 			}
 		}
 		//Xử lí sự kiện bật nút sưởi
@@ -422,13 +465,22 @@ const app = {
 				}
 			}
 			else {
-				alert('Vui lòng bật thiết bị trước !')
+				app.MessageError('Vui lòng bật quạt trước !!!')
 			}
 		}
-		// Chọn tốc độ quạt 
-			
-
+		 
+		$('.speed-body ').onclick =function() {
+			app.getValueSpeedFan1()
+			if(app.isStartusFan1 ===true){
+				FanAnimate1.play();
+			}
+			var updates ={}
+			updates['Fan-bedroom/1/' + 'speed'] = ''+valueSpeedFan1;
+			firebase.database().ref().update(updates);
+		}
+		
 	},
+	//Xử lí các sự kiện cho tivi
 	handleEventTivi: function() {
 		//Xử lí sự kiện chọn thiết bị Tivi
 		toggleTv.onclick = function() {
@@ -445,6 +497,106 @@ const app = {
 			})
 			toggleTv.classList.add('active')
 			device[3].classList.add('open')
+		}
+		//Xử lí sự kiện on/off
+		isstatusTivi1 =false,
+		$('#tivi-bedroom .on-off').onclick =function() {
+			if(isstatusTivi1===false){
+                isstatusTivi1 =true
+				app.writePostTivi('Tivi-bedroom/',1,'On','vtv'+app.currentProgram,'0',app.volumeTivi1+'')
+				$('#tivi-bedroom .on-off i').classList.add('active-btn')
+				$('#tivi-bedroom img').src=`./acsset/img/vtv${app.currentProgram}.png`
+				$('#tivi-bedroom .currentProgram').innerHTML =`VTV ${app.currentProgram}`
+			}
+            else {
+                isstatusTivi1 =false
+				app.writePostTivi('Tivi-bedroom/',1,'Off','vtv'+app.currentProgram,'0',app.volumeTivi1+'')
+				$('#tivi-bedroom img').src=`./acsset/img/tivioff.png`
+				$('#tivi-bedroom .currentProgram').innerHTML ="OFF"
+				$$('#tivi-bedroom .active-btn').forEach(element =>{
+					element.classList.remove('active-btn')
+				})
+            }
+		}
+		// Xử lí sự kiện ấn nút next chương trình
+		btnNextProgram.onclick =function () {
+			var updates ={}
+			if(isstatusTivi1){
+				if(app.currentProgram <6){
+					app.currentProgram++;
+					$('#tivi-bedroom img').src=`./acsset/img/vtv${app.currentProgram}.png`
+					$('#tivi-bedroom .currentProgram').innerHTML =`VTV ${app.currentProgram}`
+					updates['Tivi-bedroom/1/' + 'currentProgram'] = 'vtv'+app.currentProgram
+					firebase.database().ref().update(updates);
+				}
+				else {
+					app.currentProgram = 1
+					$('#tivi-bedroom img').src=`./acsset/img/vtv${app.currentProgram}.png`
+					$('#tivi-bedroom .currentProgram').innerHTML =`VTV ${app.currentProgram}`
+					updates['Tivi-bedroom/1/' + 'currentProgram'] = 'vtv'+app.currentProgram
+					firebase.database().ref().update(updates);
+				}
+			}
+			else {
+				app.MessageError('Vui lòng bật Tivi trước !!!')
+			}
+		}
+		//Xử lí sự kiện quay lại chương trình trước đó
+		btnPrevProgram.onclick =function () {
+			var updates ={}
+			if(isstatusTivi1){
+				if(app.currentProgram >1){
+					app.currentProgram--;
+					$('#tivi-bedroom img').src=`./acsset/img/vtv${app.currentProgram}.png`
+					$('#tivi-bedroom .currentProgram').innerHTML =`VTV ${app.currentProgram}`
+					updates['Tivi-bedroom/1/' + 'currentProgram'] = 'vtv'+app.currentProgram
+					firebase.database().ref().update(updates);
+				}
+				else {
+					app.currentProgram = 6
+					$('#tivi-bedroom img').src=`./acsset/img/vtv${app.currentProgram}.png`
+					$('#tivi-bedroom .currentProgram').innerHTML =`VTV ${app.currentProgram}`
+					updates['Tivi-bedroom/1/' + 'currentProgram'] = 'vtv'+app.currentProgram
+					firebase.database().ref().update(updates);
+				}
+			}
+			else {
+				app.MessageError('Vui lòng bật Tivi trước !!!')
+			}
+		}
+		// Xử lí sự kiện ấn nút Home
+		btnHome.onclick = function() {
+			var updates ={}
+			if(isstatusTivi1) {
+				timeoutLamp2 = setTimeout(function(){
+					$('#tivi-bedroom .home i').classList.toggle('active-btn')
+					updates['Tivi-bedroom/1/' + 'home'] = '0'
+					firebase.database().ref().update(updates);
+	
+				}, 500);
+				$('#tivi-bedroom .home i').classList.toggle('active-btn')
+				updates['Tivi-bedroom/1/' + 'home'] = '1'
+				firebase.database().ref().update(updates);
+				$('#tivi-bedroom img').src=`./acsset/img/vtvHome.png`
+				$('#tivi-bedroom .currentProgram').innerHTML =`Home`
+			}
+			else {
+				app.MessageError('Vui lòng bật Tivi trước !!!')
+			}
+		}
+		//Xử lí sự kiện bật nút Tăng âm lượng
+		toggleePlusTv1.onclick = function() {
+			var updates ={}
+			if(app.volumeTivi1 < 100){
+				app.volumeTivi1++;
+				$('#tivi-bedroom .progress-bar').style.width = app.volumeTivi1+"%";
+				document.getElementById('valueTivi1').innerHTML = app.volumeTivi1 +''
+				updates['Tivi-bedroom/1/' + 'volume'] = ''+app.volumeTivi1
+				firebase.database().ref().update(updates);
+			}
+			else {
+				app.volumeTivi1 =app.volumeTivi1
+			}
 		}
 	},
     handleEventSetTime: function() {
@@ -517,13 +669,14 @@ const app = {
 	stopTimeLamp3:function(){
 		clearTimeout(timeoutLamp3)
 	},
-	writePostHarnomic: function(PostName,idPost,status,dew,wind,cold,dried) {
+	writePostharmonic: function(PostName,idPost,status,dew,wind,cold,dried,temperature) {
 		firebase.database().ref(PostName + idPost).set({
 			status : status,
 			dew : dew,
 			wind: wind,
 			cold: cold,
-			dried: dried 
+			dried: dried,
+			temperature : temperature
 		})
 	},
 	writePostFan: function(PostName,idPost,status,turn,dew,dried,speed) {
@@ -534,22 +687,35 @@ const app = {
 			dried: dried,
 			speed: speed 
 		})
+	},
+	writePostTivi: function(PostName,idPost,status,currentProgram,home,volume) {
+		firebase.database().ref(PostName + idPost).set({
+			status : status,
+			currentProgram:currentProgram,
+			home: home,
+			volume: volume 
+		})
 	}
 	,
-	settemperatureHarnomic:function() {
-			$('.control-temp .progress-bar').style.width = 3.125 *app.tempHarnomic +'%';
-			document.getElementById('valueHanomic1').innerHTML = app.tempHarnomic +''
-			if(app.tempHarnomic <=17) {
+	MessageError: function(messerror) {
+		$('.messageError h1').innerText = messerror
+		$('.messageError').classList.remove('close')
+	}
+	,
+	settemperatureharmonic:function() {
+			$('.control-temp .progress-bar').style.width = 3.125 *app.tempharmonic +'%';
+			$('.valuetemp1').innerHTML = app.tempharmonic +'°C'
+			if(app.tempharmonic <=17) {
 				$('.control-temp .progress-bar').style.background = '#26c248'
 			}
-			if(app.tempHarnomic >17 && app.tempHarnomic <=21) {
+			if(app.tempharmonic >17 && app.tempharmonic <=21) {
 				$('.control-temp .progress-bar').style.background = '#a0c226'
 			}
-			else if(app.tempHarnomic >21 && app.tempHarnomic <=26) {
+			else if(app.tempharmonic >21 && app.tempharmonic <=26) {
 				$('.control-temp .progress-bar').style.background = '#ece13a'
 			}
-			else if(app.tempHarnomic >26 && app.tempHarnomic <=32) {
-				$('.control-temp .progress-bar').style.background = '#e23517'
+			else if(app.tempharmonic >26 && app.tempharmonic <=32) {
+				$('.control-temp .progress-bar').style.background = '#fd0000'
 			}
 	},
 	getRealTime: function() {
@@ -567,19 +733,15 @@ const app = {
 	},
 	getValueSpeedFan1: function() {
 		speedFan1.forEach(element=>{
-			if(element.checked===true)
-			{	
-				valueSpeedFan1= element.value;
-			}
-			else {
-				valueSpeedFan1 ="0"
+			if(element.checked===true){		
+			valueSpeedFan1 = element.value;
 			}
 		})
 	},
     Start: function() {
         this.handleEventLogin();
 		this.handleEventLamp();
-		this.handleEventHarnomic();
+		this.handleEventharmonic();
 		this.handleEventFan();
 		this.handleEventTivi();
 		this.handleEventSetTime();

@@ -5,11 +5,10 @@
     <meta name="viewport" content="width = device-width">
     <title>demo
     </title>
-    
     <link rel="stylesheet" href="./acsset/style.css">
+    <link rel="stylesheet" href="indexRegister.html">
     <link rel="stylesheet" href="./acsset/responsive.css">
     <script src="https://kit.fontawesome.com/20350b7c07.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./acsset/icon/themify-icons-font/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="./style.scss">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
@@ -21,37 +20,30 @@
         <div id="header">
                 <!-- begin Nav -->
                 <ul id="nav">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Hiển thị</a></li>
-                    
-                    <li>
-                        <a href="#">
-                            Điều khiển thiết bị
-                            <i class="nav-icon ti-arrow-circle-down"></i>
-                        </a>
-                        <ul class="subnav">
-                            <li><a href="#">Phòng ngủ</a></li>
-                            <li><a href="#">Phòng Bếp</a></li>
-                            <li><a href="#">Phòng Khách</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Thông tin</a></li>
+                    <span id="logo-team">
+                        <img src="./acsset/img/nhom3.drawio.png" alt="">
+                        <a href="">NHÓM 3</a>
+                    </span>
+                    <div id="subnav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Hiển thị</a></li>
+                        <li> <a href="#">Điều khiển thiết bị</a></li>
+                        <li><a href="#">Thông tin</a></li>
+                    </div>
+                    <!-- begin login buton -->
+                    <div class="login-button">
+                        <a href="#">Log in</a>
+                    </div>
                 </ul>
                 <!-- end Nav -->
 
-                <!-- begin login buton -->
-                <div class="login-button">
-                    <a href="#">Log in</a>
-                </div>
+                
                 <!-- end login buton -->
-                <div class="mobile-menu-btn">
-                    <i id="mobile-menu" class="menu-icon ti-menu"></i>
-                </div>
                 
                 <div id="wapper-login" >
                     <div action="" id="form-login">
                         <div class="close-login">
-                            <i class="ti-close close-icon"></i>
+                            <i class="fa-solid fa-xmark close-icon"></i>
                         </div>
                         <div><h1 class="form-heading">Đăng nhập</h1></div>
                         <div>
@@ -61,7 +53,7 @@
                                         <label for="email">Email</label>
                                         <span>
                                             Bạn chưa có tài khoản?
-                                            <a href="#">Đăng kí</a>
+                                            <a href="indexRegister.html">Đăng kí</a>
                                         </span>
                                     </div>
                                     <div class="form-input">
@@ -97,7 +89,7 @@
                         <!-- Begin Nav-device -->
                         <div id="nav-device">
                             <span class="active" id="toggle-lamp"><i class="fa-regular fa-lightbulb lamspan-icon"></i></span>
-                            <span id="toggle-harnomic"><i class="fa-regular fa-snowflake fan-icon"></i></span>
+                            <span id="toggle-harmonic"><i class="fa-regular fa-snowflake fan-icon"></i></span>
                             <span id="toggle-fan"><i class="fa-solid fa-fan fan-icon"></i></i></span>
                             <span id="toggle-tv"><i class="fa-solid fa-tv tivi_icon "></i></span>
                         </div>
@@ -106,8 +98,8 @@
                         <div class="" id="device">
                             <div class="device-lamp frames row" >
                                 <div class="col col-third mt-16  " id="lamp-bedroom">
-                                    <img src="./acsset/img/denof.png" alt="Bóng đèn" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/denoff.png" alt="Bóng đèn" class="img">
                                         <h3 class="device-name">Phòng ngủ</h3>
                                         <span class="status">
                                             <p class="device-status">Tình trạng: </p>
@@ -138,8 +130,8 @@
                                 </div>
                         
                                 <div class="col col-third mt-16 " id="lamp-guestRoom">
-                                    <img src="./acsset/img/denof.png" alt="Bóng đèn" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/denoff.png" alt="Bóng đèn" class="img">
                                         <h3 class="device-name">Phòng Khách</h3>
                                         <span>
                                             <p class="device-status">Tình trạng: </p>
@@ -170,8 +162,8 @@
                                     </div>
                                 </div>
                                 <div class="col col-third mt-16 "id="Lamp-kitchen">
-                                    <img src="./acsset/img/denof.png" alt="Bóng đèn" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/denoff.png" alt="Bóng đèn" class="img">
                                         <h3 class="device-name">Phòng bếp</h3>
                                         <span>
                                             <p class="device-status">Tình trạng: </p>
@@ -206,10 +198,13 @@
                             <!-- End Control -device-Lamp -->
                             <!-- Begin Control -device-Harmonic -->
                         <div class="close" id="device">
-                            <div class="device-harnomic frames row" id="harnomic-bedroom">
+                            <div class="device-harmonic frames row" id="harmonic-bedroom">
                                 <div class="col col-two mt-16 mgr-32">
-                                    <img src="./acsset/img/dieuhoa1.jpg" alt="Điều hoà" class="img">
                                     <div class="device-body">
+                                        <div class="r">
+                                            <img src="./acsset/img/dieuhoaoff.png" alt="Điều hoà" class="img">
+                                                <h3 class=" close valuetemp1">16</h3>
+                                        </div>
                                         <h3 class="device-name">Phòng ngủ</h3>
                                         <div id="nav-control">
                                             <span class="dew"><i class="fa-solid fa-droplet icon-btn"></i></span>
@@ -221,9 +216,6 @@
                                             <span><i class="fa-solid fa-minus icon-minus" id="icon-toggle"></i></span>
                                             <div class="progress-bar-wrapper">
                                                 <div class="temp-value device-value">
-                                                    <h3> Nhiệt độ </h3>
-                                                    <h3 id="valueHanomic1">16</h3>
-                                                    <h3>Độ C</h3>
                                                 </div>
                                                 <div class="progress-bar"></div>
                                             </div>
@@ -245,16 +237,16 @@
                                         </div>
                                         <div class="toggle-button-cover">
                                             <div class="button r" id="button-1">
-                                            <input type="checkbox" class="switch-toggle" id="statust-harnomic1" />
+                                            <input type="checkbox" class="switch-toggle" id="statust-harmonic1" />
                                             <div class="knobs"></div>
                                             <div class="layer"></div>
                                             </div>
                                         </div>       
                                     </div>
                                 </div>
-                                <div class="col col-two mt-16 mgl-32" id="harnomic-guestRoom">
-                                    <img src="./acsset/img/dieuhoa1.jpg" alt="Bóng đèn" class="img">
+                                <div class="col col-two mt-16 mgl-32" id="harmonic-guestRoom">
                                     <div class="device-body">
+                                        <img src="./acsset/img/dieuhoaoff.png" alt="Bóng đèn" class="img">
                                         <h3 class="device-name">Phòng Khách</h3>
                                         <div id="nav-control">
                                             <span class=""><i class="fa-solid fa-droplet icon-btn"></i></span>
@@ -265,11 +257,6 @@
                                         <div class="control-temp">
                                             <span><i class="fa-solid fa-minus icon-minus"id="icon-toggle"></i></span>
                                             <div class="progress-bar-wrapper">
-                                                <div class="temp-value device-value ">
-                                                    <h3> Nhiệt độ </h3>
-                                                    <h3>16</h3>
-                                                    <h3>Độ C</h3>
-                                                </div>
                                                 <div class="progress-bar"></div>
                                             </div>
                                             <span><i class="fa-solid fa-plus icon-plus"id="icon-toggle"></i></span>
@@ -290,7 +277,7 @@
                                         </div>
                                         <div class="toggle-button-cover">
                                             <div class="button r" id="button-1">
-                                                <input type="checkbox" class="switch-toggle"  id="statust-harnomic2"/>
+                                                <input type="checkbox" class="switch-toggle"  id="statust-harmonic2"/>
                                                 <div class="knobs"></div>
                                                 <div class="layer"></div>
                                             </div>   
@@ -299,13 +286,17 @@
                                 </div>
                             </div>
                         </div>
-                         <!-- End Control -device-Harnomic -->
+                         <!-- End Control -device-harmonic -->
                          <!-- Begin Control -device-Fan -->
                         <div class="close" id="device">
                             <div class="device-Fan frames row" >
                                 <div class="col col-third mt-16" id="Fan-bedroom">
-                                    <img src="./acsset/img/quatoff.png" alt="Quạt" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/quatoff.png" alt="Quạt" class="img " id="imgFan1off">
+                                        <div class="img openFan" id="imgOpenFan1">
+                                            <img src="./acsset/img/canhquat.png" alt="Quạt" class="imgOpenFan1">
+                                            <img src="./acsset/img/dequat.png" alt="Quạt" class="img2">
+                                        </div>
                                         <h3 class="device-name">Phòng ngủ</h3>
                                         <div id="nav-control">
                                             <span class="turn"><i class="fa-solid fa-arrows-spin icon-btn"></i></span>                                          </span>                                         </span>
@@ -315,7 +306,7 @@
                                         <div id="speed">
                                             <h3 class="speed-head">Tốc độ: </h3>
                                             <p class="speed-body">
-                                            <input type="radio" id="low" name="Fan1-speed" value="LOW">
+                                            <input type="radio" id="low" name="Fan1-speed" value="LOW" checked="checked">
                                             <label for="LOW">Low</label>
                                             <input type="radio" id="med" name="Fan1-speed" value="MED">
                                             <label for="Med">Med</label>
@@ -347,8 +338,8 @@
                                     </div>
                                 </div>
                                 <div class="col col-third mt-16" id="Fan-kitchen">
-                                    <img src="./acsset/img/quatoff.png" alt="Quạt" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/quatoff.png" alt="Quạt" class="img">
                                         <h3 class="device-name">Phòng Khách</h3>
                                         <div id="nav-control">
                                             <span class=""><i class="fa-solid fa-arrows-spin icon-btn"></i></span>                                          </span>                                         </span>
@@ -358,11 +349,11 @@
                                         <div id="speed">
                                             <h3 class="speed-head">Tốc độ: </h3>
                                             <p class="speed-body">
-                                            <input type="radio" id="low" name="Fan-speed" value="LOW">
+                                            <input type="radio" id="low" name="Fan2-speed" value="LOW" checked="checked" >
                                             <label for="LOW">Low</label>
-                                            <input type="radio" id="med" name="Fan-speed" value="MED">
+                                            <input type="radio" id="med" name="Fan2-speed" value="MED">
                                             <label for="Med">Med</label>
-                                            <input type="radio" id="high"name="Fan-speed"  value="HIGH">
+                                            <input type="radio" id="high"name="Fan2-speed"  value="HIGH">
                                             <label for="High">High</label>
                                             </p>
                                         </div>
@@ -390,8 +381,8 @@
                                     </div>
                                 </div>
                                 <div class="col col-third mt-16 " id="Fan-guestRooom">
-                                    <img src="./acsset/img/quatoff.png" alt="Quạt" class="img">
                                     <div class="device-body">
+                                        <img src="./acsset/img/quatoff.png" alt="Quạt" class="img">
                                         <h3 class="device-name">Phòng Bếp</h3>
                                         <div id="nav-control">
                                             <span class=""><i class="fa-solid fa-arrows-spin icon-btn"></i></span>                                          </span>                                         </span>
@@ -401,11 +392,11 @@
                                         <div id="speed">
                                             <h3 class="speed-head">Tốc độ: </h3>
                                             <p class="speed-body">
-                                            <input type="radio" id="low" name="Fan-speed" value="LOW">
+                                            <input type="radio" id="low" name="Fan3-speed" value="LOW" checked="checked">
                                             <label for="LOW">Low</label>
-                                            <input type="radio" id="med" name="Fan-speed" value="MED">
+                                            <input type="radio" id="med" name="Fan3-speed" value="MED">
                                             <label for="Med">Med</label>
-                                            <input type="radio" id="high"name="Fan-speed"  value="HIGH">
+                                            <input type="radio" id="high"name="Fan3-speed"  value="HIGH">
                                             <label for="High">High</label>
                                             </p>
                                         </div>
@@ -436,24 +427,28 @@
                     </div>
                     <!-- Begin Control -device-Tivi -->
                     <div class="close" id="device">
-                        <div class="device-tivi frames row" id="tivi-bedroom">
-                            <div class="col col-two mt-16 mgr-32">
-                                <img src="./acsset/img/tivioff.jpg" alt="tivi" class="img">
+                        <div class="device-tivi frames row" >
+                            <div class="col col-two mt-16 mgr-32" id="tivi-bedroom">
+                                
                                 <div class="device-body">
+                                    <div>
+                                        <h1 class="currentProgram">OFF <p></p></h1>
+                                        <img src="./acsset/img/tivioff.png" alt="tivi" class="img">
+                                    </div>
                                     <h3 class="device-name">Phòng ngủ</h3>
                                     <div id="nav-control">
-                                        <span class=""><i class="fa-solid fa-house icon-btn"  id="icon-toggle"></i></span>
-                                        <span class=""><i class="fa-solid fa-backward icon-btn" id="icon-toggle"></i></span>
-                                        <span class=""><i class="fa-solid fa-forward icon-btn" id="icon-toggle"></i></span>
-                                        <span class=""><i class="fa-solid fa-power-off icon-btn" ></i></span>
+                                        <span class="home"><i class="fa-solid fa-house icon-btn"  id="icon-toggle"></i></span>
+                                        <span class="prev"><i class="fa-solid fa-backward icon-btn" id="icon-toggle"></i></span>
+                                        <span class="next"><i class="fa-solid fa-forward icon-btn" id="icon-toggle"></i></span>
+                                        <span class="on-off"><i class="fa-solid fa-power-off icon-btn" ></i></span>
                                     </div>
-                                    <img src="./acsset/img/enter.png" alt="">
+                                    <img src="./acsset/img/enter.png" alt="" class="img-btn">
                                     <div class="control-tivi">
                                         <span><i class="fa-solid fa-minus icon-minus icon-btn" id="icon-toggle"></i></span>
                                         <div class="progress-bar-wrapper">
                                             <div class="tivi-value device-value ">
                                                 <h3> Âm lượng </h3>
-                                                <h3>50</h3>
+                                                <h3 id="valueTivi1">50</h3>
                                             </div>
                                             <div class="progress-bar"></div>
                                         </div>
@@ -472,8 +467,11 @@
                                 </div>
                             </div>
                             <div class="col col-two mt-16 mgl-32" id="tivi-guestroom">
-                                <img src="./acsset/img/tivioff.jpg" alt="tivi" class="img">
                                 <div class="device-body">
+                                    <div>
+                                        <h1 class="currentProgram">OFF <p></p></h1>
+                                        <img src="./acsset/img/tivioff.png" alt="tivi" class="img">
+                                    </div>
                                     <h3 class="device-name">Phòng Khách</h3>
                                     <div id="nav-control">
                                         <span class=""><i class="fa-solid fa-house icon-btn"id="icon-toggle"></i></span>
@@ -481,13 +479,13 @@
                                         <span class=""><i class="fa-solid fa-forward icon-btn"id="icon-toggle"></i></span>
                                         <span class=""><i class="fa-solid fa-power-off icon-btn"></i></span>
                                     </div>
-                                    <img src="./acsset/img/enter.png" alt="">
+                                    <img src="./acsset/img/enter.png" alt="" class="img-btn">
                                     <div class="control-tivi">
                                         <span><i class="fa-solid fa-minus icon-minus"id="icon-toggle"></i></span>
                                         <div class="progress-bar-wrapper">
                                             <div class="tivi-value device-value ">
                                                 <h3> Âm lượng </h3>
-                                                <h3>50</h3>
+                                                <h3 id="valueTivi2">50</h3>
                                             </div>
                                             <div class="progress-bar"></div>
                                         </div>
@@ -511,35 +509,14 @@
                     </div>
                 
                 </div>
-                <div id="displayed">
-                    <div class="show-value">
-                        <h2 class="displayed-heading head">Hiển thị giá trị cảm biến</h2>
-                        <div class="displayed-list frames row ">
-                            <div class="col col-two sensor-temp">
-                                <span>
-                                    <i class="fa-solid fa-temperature-empty"></i>
-                                    <h3>Nhiệt độ</h3>
-                                </span>
-                            </div>
-                            <div class="col col-two sensor-humidity">
-                                <svg  viewBox="1 0 36 36">
-                                    <path
-                                      d="M0 0
-                                        a 15.9155 15.9155 0 0 1 0 29
-                                        a 15.9155 15.9155 0 0 1 0 -29"
-                                    />
-                                  </svg>
-                                <div class="displayed-body">
-                                    <h3 class="sensor-name">Nhiệt độ</h3>
-                                    <span class="status">
-                                        <p class="sensor-status">Tình trạng: </p>
-                                        Đang Tắt
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="displayed close">
+                    
                 </div>
+            <div class="messageError close">
+                <div><img src="./acsset/img/messageError.png" alt="" class="imgMessError"></div>
+                <h1>Vui lòng bật đèn</h1>
+                <button>OK</button>
+            </div>
             <div id="slider">
                    
             </div>   
