@@ -4,6 +4,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+.active-header {
+    background: #122e46 !important;
+    color: #04aa6d;
+}
 .active-btn {
     background: #ddbc02 !important;
     color: #000 !important;
@@ -63,6 +67,7 @@ html{
     left: 41%;
     border-radius: 10px;
 }
+
 .messageError button:hover {
     background: rgb(38, 105, 167);;
 }
@@ -176,7 +181,7 @@ html{
 }
 /*  */
 #header{
-    background-color:#7a7777!important ;
+    background-color:#7a7777 ;
     height: 80px;
     position: fixed;
     top: 0;
@@ -351,7 +356,6 @@ html{
     cursor: pointer;
     
 }
-
 .form-pass span i {
     margin-right: 4px;
 }
@@ -385,25 +389,27 @@ html{
     font-size: 14px;
     color: #282a35;
     text-decoration: none;
-    font-weight: 600;
-    
+    font-weight: 600; 
 }
 #content{
 
 }
 .head {
-    font-size: 30px;
-    color: #fff;
-    margin: 25px 0;
+    font-size: 45px;
+    color: #26d711;
+    margin: 33px 0;
     text-align: center;
-    font-weight: 400;
+    font-weight: 600;
 }
 
-#control{
+#control,
+#displayed {
     padding-top: 80px;
     background-color: #031321;
 }
-#nav-device {
+#nav-control-device,
+#nav-displayer-device
+ {
     display: flex;
     max-width: 1000px;
     padding: 12px;
@@ -412,7 +418,8 @@ html{
     flex-direction: row;
     justify-content: space-around;
 }
-#nav-device span {
+#nav-control-device span,
+#nav-displayer-device span{
     padding: 34px;
     background: #323d46;
     border-radius: 15px;
@@ -423,7 +430,9 @@ html{
     box-shadow:  0px -4px 7px  #79848d ;
     cursor: pointer;
 }
-#nav-device span:hover {
+#nav-control-device span:hover,
+#nav-displayer-device span:hover
+ {
     background: #1a2b38;
 }
 div#device {
@@ -431,7 +440,8 @@ div#device {
     /* z-index: 0; */
     /* left: 10%; */
 }
-#nav-device span i {
+#nav-control-device span i,
+#nav-displayer-device span i{
     width: 100%;
     font-size: 50px;
     position: relative;
@@ -472,7 +482,14 @@ div#device {
 #tivi-guestroom {
     animation: modalDownToUp ease 0.4s;
 }
-
+/* animation sensor nhiet do */
+#ssTemperature{
+    animation: modalRightToLeft ease 0.3s;
+}
+#ssHumidity
+{
+    animation: modalLeftToRight ease 0.3s;
+}
 .currentProgram {
     display: flex;
     justify-content: center;
@@ -484,7 +501,7 @@ div#device {
     display: block;
     position: relative;
 }
-#control .device-body {
+.device-body {
     background-color: #323844;
     padding: 0 12px;
     border-radius: 40px;
@@ -495,11 +512,13 @@ div#device {
     top: -10px;
     left: 7px;
     padding-left: 2px;
+    width: 100%;
 }
 .img .img2 {
     position: absolute;
     margin-top:152px;
-    margin-left: 16px;
+    margin-left: 18px;
+    width: 100%;
 }
 #control .device-name {
     text-align: center;
@@ -539,13 +558,7 @@ div#device {
     padding: 3px;
     border-radius: 30px;
 }
-.device-body img {
-    display: block;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    cursor: pointer;
-}
+
 .device-body #nav-control .icon-btn {
     position: relative;
     font-size: 32px;
@@ -647,7 +660,11 @@ span.timeused {
 .device-tivi .img-btn {
     width: 50%;
     border-radius: 50%;
-    box-shadow:  0px -4px 7px  #051f1d; ;
+    box-shadow: 0px -4px 7px #051f1d;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+    display: block;
 }
 
 .timer-val input[type="number"] 
@@ -670,14 +687,14 @@ span.timeused {
     padding: 40px 15px 30px 15px;
   }
   
-  .knobs,
-  .layer {
+.knobs,
+.layer {
     position: absolute;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-  }
+}
   
 .button {
     position: relative;
@@ -818,22 +835,100 @@ input[type='radio'] + label {
 #displayed {
     padding-top: 80px;
     background: #073157;
+    position: relative;
 }
+.displaySS-body {
+    background-color: #323844;
+    padding: 0 12px;
+    border-radius: 40px;
+    position: relative;
+}
+.nameDevice{
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 28px;
+    color: #04aa6d;
+    width: 800px;
+}
+#displayed .imgTemperature {
+    width: 100%;
+    height: 660px;
+    display: block;
+    position: relative;
+}
+.displaySS-body .progressBar-temperature {
+    display: block;
+    position: absolute;
+    bottom: 35%;
+    left: 49.5%;
+    width: 29px;
+    height: 30%;
+    border-radius: 25px;
+    background-color: #F00000;
+}
+.displaySS-body .valuessTemperature {
+    text-align: center;
+    margin-left: 35%;
+    width: 32%;
+    padding: 17px 9px;
+    margin-bottom: 35px;
+    background-color: #131518;
+    color: #11dac5;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0px 0px 7px #585c62;
+}
+.displaySS-body span {
+    width: 44%;
+    margin-left: 37%;
+    margin-bottom: 78px;
+    display: inline-block;
+}
+.displaySS-body span i{
+    font-size: 47px;
+    display: inline-block;
+    margin-right: 12px;
 
-.displayed-list .sensor-temp {
-    padding-top: 16px;
-    padding-right: 100px;
 }
-.displayed-list .sensor-humidity {
-    padding-top: 16px;
-    padding-left: 100px;
-    
+.displaySS-body span h4 {
+    font-size: 26px;
+    display: inline-block;
 }
-#displayed  svg {
+.displaySS-body .container {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    padding: 5px;
+    border: 5px solid #76daff;
+    left: 28%;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .wave {
+    position: relative;
     width: 100%;
     height: 100%;
-    fill:none;
-    stroke:#03f437;
-    stroke-width:1px;
-    stroke-dasharray: 75 100; 
+    background-color: #76daff;
+    border-radius: 50%;
+  }
+.subwave {
+content: "";
+position: absolute;
+width: 100%;
+height: 100%;
+background-color: #323844;
+top: -45%;
+left: 0%;
+z-index: 2;
+}
+  
+.displaySS-body  p {
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 66px;
+color: #000;
+z-index: 10;
 }
