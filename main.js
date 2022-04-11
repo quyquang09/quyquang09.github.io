@@ -782,16 +782,17 @@ const app = {
 		})
 	},
 	getvalueSsTemperatue : function(){
-		firebase.database().ref("valueSensor").child('temperatue').on("value",snapshot=>{
+		firebase.database().ref("valueSensor").child('temperature').on("value",snapshot=>{
 			valueSstemp = snapshot.val();
-			$('.valuessTemperature').innerText =`${valueSstemp}°C / ${(valueSstemp*1.8+32)}°F`
+			$('.valuessTemperature').innerText =`${valueSstemp}°C / ${Math.round((valueSstemp*1.8+32))}°F`
 			$('.progressBar-temperature').style.height = valueSstemp*0.888 +'%'
 		}) 
 	}
 	,
 	getvalueSsHumidity : function(){
-		firebase.database().ref("valueSensor").child('humidity').on("value",snapshot=>{
+		firebase.database().ref("valueSensor").child('Humidity').on("value",snapshot=>{
 			valueSsHumidity = snapshot.val();
+			valueSsHumidity =Math.round(valueSsHumidity)
 			$('.container p').innerText =`${valueSsHumidity} % `
 			$('.subwave').style.top ='-'+valueSsHumidity+'%'
 		}) 
