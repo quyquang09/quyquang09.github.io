@@ -30,6 +30,9 @@ const btnClose = $('.close-icon')
 const btnLoginForm = $('.form-submit')
 const btnHide=$('.form-pass span')
 
+const toggleDisplayerSS =$('#toggle-displayerSS')
+const toggleControl =$('#toggle-control')
+
 const statustLamp1=$('.switch-toggle1')
 const statustLamp2 =$('.switch-toggle2')
 const statustLamp3 =$('.switch-toggle3')
@@ -56,9 +59,12 @@ const btnNextProgram = $('#tivi-bedroom .next')
 const btnPrevProgram = $('#tivi-bedroom .prev')
 const btnHome = $('#tivi-bedroom .home')
 const toggleePlusTv1 = $('#tivi-bedroom .icon-plus')
+//Sensor
+const toggleSsTemperature = $('#toggle-ssTemperature')
+const toggleSsHumidity = $('#toggle-ssHumidity')
 
 const toggleSetTimer =$('#save-timer')
-const NavDevicce = $('#nav-device')
+const NavDevicce = $('#nav-control-device')
 const toggleLamp =$('#toggle-lamp')
 const toggleHarmonic =$('#toggle-harmonic')
 const toggleFan = $('#toggle-fan')
@@ -69,6 +75,9 @@ var codes
 var delayInMilliseconds = 1000; //1 second
 let s=0,m=0,h=0
 var updates ={}
+//Giá trị cảm biến
+var valueSstemp =0;
+var valueSsHumidity=0;
 const app = {
 	//Trạng thái đèn
     isStartusLamp1:true,
@@ -116,6 +125,24 @@ const app = {
 			$('.messageError').classList.add('close')
 		}	
 	},
+	//Xử lí sự kiện đọc giá trị sensor và điều khiển thiết bị
+	handleControl: function() {
+		//Điều khiển thiết bị
+		toggleControl.onclick = function() {
+			$('#control').classList.remove('close')
+			$('.display-device').classList.add('close')
+			toggleControl.classList.add('active-header')
+			toggleDisplayerSS.classList.remove('active-header')
+		}
+		//H
+		toggleDisplayerSS.onclick = function() {
+			$('#control').classList.add('close')
+			$('.display-device').classList.remove('close')
+			toggleControl.classList.remove('active-header')
+			toggleDisplayerSS.classList.add('active-header')
+		}
+	}
+	,
 	// Xử lí các sự kiện của đèn
 	handleEventLamp: function() {
 		//Xử lí sự kiện chọn thiết bị đèn
@@ -599,6 +626,22 @@ const app = {
 			}
 		}
 	},
+	//Xử lí sự kiện cho cảm biến nhiệt độ và độ ẩm
+	handleSensor :function() {
+		toggleSsTemperature.onclick =function() {
+			toggleSsTemperature.classList.add('active')
+			toggleSsHumidity.classList.remove('active')
+			$('#ssTemperature').classList.remove('close')
+			$('#ssHumidity').classList.add('close')
+		}
+		toggleSsHumidity.onclick =function() {
+			toggleSsTemperature.classList.remove('active')
+			toggleSsHumidity.classList.add('active')
+			$('#ssTemperature').classList.add('close')
+			$('#ssHumidity').classList.remove('close')
+		}
+	}
+	,
     handleEventSetTime: function() {
 		//Bắt sự kiện đặt giờ
 		toggleSetTimer.onclick =function() {
@@ -738,15 +781,34 @@ const app = {
 			}
 		})
 	},
+	getvalueSsTemperatue : function(){
+		firebase.database().ref("valueSensor").child('temperatue').on("value",snapshot=>{
+			valueSstemp = snapshot.val();
+			$('.valuessTemperature').innerText =`${valueSstemp}°C / ${(valueSstemp*1.8+32)}°F`
+			$('.progressBar-temperature').style.height = valueSstemp*0.888 +'%'
+		}) 
+	}
+	,
+	getvalueSsHumidity : function(){
+		firebase.database().ref("valueSensor").child('humidity').on("value",snapshot=>{
+			valueSsHumidity = snapshot.val();
+			$('.container p').innerText =`${valueSsHumidity} % `
+			$('.subwave').style.top ='-'+valueSsHumidity+'%'
+		}) 
+	},
     Start: function() {
+		this.handleControl();
         this.handleEventLogin();
 		this.handleEventLamp();
 		this.handleEventharmonic();
 		this.handleEventFan();
 		this.handleEventTivi();
+		this.handleSensor();
 		this.handleEventSetTime();
         this.getRealTime();
-		
+		this.getvalueSsTemperatue()
+		this.getvalueSsHumidity()
     }
 }
+
 app.Start();
