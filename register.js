@@ -1,14 +1,13 @@
-
 const firebaseConfig = {
-    apiKey: "AIzaSyCQ_eHMDVAOGVVFf6Cm7WnZn65LIOLZK-I",
-    authDomain: "demologin-8015f.firebaseapp.com",
-    projectId: "demologin-8015f",
-    storageBucket: "demologin-8015f.appspot.com",
-    messagingSenderId: "770973797537",
-    appId: "1:770973797537:web:43e5aff7c18e964f7534e0",
-    measurementId: "G-GB2EWCFBD5"
-  };
-
+    apiKey: "AIzaSyBm7rrM_hAALUJ5Df-cXxSaceQwD7ws0lo",
+    authDomain: "baocaocuoikitest.firebaseapp.com",
+    databaseURL: "https://baocaocuoikitest-default-rtdb.firebaseio.com",
+    projectId: "baocaocuoikitest",
+    storageBucket: "baocaocuoikitest.appspot.com",
+    messagingSenderId: "498648859175",
+    appId: "1:498648859175:web:92ff5c6b0fb6e38e164402",
+    measurementId: "G-Z678PC4M4D"
+};
 
   // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
@@ -23,27 +22,22 @@ const inputPassword = $('#password input')
 const inputConfPassword = $('#confirmpassword input')
 
 function register() {
-    email = inputEmail.value
     username = inputUsername.value
+    email = inputEmail.value
     password = inputPassword.value
     confirmpass = inputConfPassword.value
     auth.createUserWithEmailAndPassword(email, password)
-    
-    // if(check_username(user_name)==false || check_email(email)==false){
-    //     var user = auth.currentUser
-    //     writePostUser('user1',user.uid,user,email,password)
-    //     alert('User Created!!')
-    // }      
-}
-
-writePostUser = function(PostName,idPost,user_name,email,password) {
-    firebase.database().ref(PostName + idPost).set({
-        user_name : user_name,
+    var user = auth.currentUser
+    alert('User Created!!') 
+    firebase.database().ref('user1' + user.uid).set({
+        user_name : username,
         email : email,
         password : password,
         last_login : Date.now()
     })
 }
+
+    
 check_username = function(valueinput) {
     
     format = /^[A-Za-z0-9]+$/;
