@@ -26,8 +26,8 @@
                     </span>
                     <div id="subnav">
                         <li><a href="#">Home</a></li>
-                        <li><a href="#">Hiển thị</a></li>
-                        <li> <a href="#">Điều khiển thiết bị</a></li>
+                        <li id="toggle-displayerSS"><a href="#">Hiển thị</a></li>
+                        <li id="toggle-control" class="active-header"> <a href="#">Điều khiển thiết bị</a></li>
                         <li><a href="#">Thông tin</a></li>
                     </div>
                     <!-- begin login buton -->
@@ -83,11 +83,11 @@
                 </div>    
             </div>
             <div id="content">
-                <div id="control">
+                <div id="control" class="">
                     <div class="control-device">
                         <h2 class="control-heading head">Điều khiển thiết bị</h2>
                         <!-- Begin Nav-device -->
-                        <div id="nav-device">
+                        <div id="nav-control-device">
                             <span class="active" id="toggle-lamp"><i class="fa-regular fa-lightbulb lamspan-icon"></i></span>
                             <span id="toggle-harmonic"><i class="fa-regular fa-snowflake fan-icon"></i></span>
                             <span id="toggle-fan"><i class="fa-solid fa-fan fan-icon"></i></i></span>
@@ -509,17 +509,59 @@
                     </div>
                 
                 </div>
-                <div id="displayed close">
-                    
+                <div id="displayed">
+                    <div class="display-device close">
+                        <h2 class="displayed-heading head">Hiển thị giá trị Sensor</h2>
+                        <div id="nav-displayer-device">
+                            <span id="toggle-ssTemperature" class="active">
+                                <i class="fa-solid fa-temperature-high"></i>
+                            </span>
+                            <span id="toggle-ssHumidity">
+                                <i class="fa-solid fa-droplet"></i>
+                            </span>
+                            
+                        </div>
+                            <div class="frames">
+                                <div id="ssTemperature" >
+                                    <div class="col mt-16 mgl-64 mgr-64" >
+                                        <div class="displaySS-body">
+                                                <h1 class="nameDevice">Nhiệt độ</h1>
+                                                <img src="./acsset/img/nhietke.png" alt="" class="imgTemperature">
+                                                <div class="progressBar-temperature"></div>
+                                                <h1 class="valuessTemperature"> 19°C / 66°F</h1>
+                                                <span>
+                                                    <i class="fa-solid fa-location-dot"></i>
+                                                    <h4>Phòng khách</h4>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="ssHumidity" class="close" >
+                                    <div class="col mt-16 mgl-64 mgr-64" >
+                                        <div class="displaySS-body ">
+                                            <h1 class="nameDevice">Độ ẩm</h1>
+                                            <div class="container">
+                                                <div class="wave"></div>
+                                                <div  class="subwave"></div>
+                                                <p>45%</p>
+                                            </div>
+                                            <span>
+                                                <i class="fa-solid fa-location-dot"></i>
+                                                <h4>Phòng khách</h4>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>  
+                            </div>
+                        </div>
+                    </div>
                 </div>
             <div class="messageError close">
                 <div><img src="./acsset/img/messageError.png" alt="" class="imgMessError"></div>
                 <h1>Vui lòng bật đèn</h1>
-                <button>OK</button>
-            </div>
-            <div id="slider">
-                   
-            </div>   
+                <button >OK</button>
+               
+            </div> 
         </div>
         
     </div>
